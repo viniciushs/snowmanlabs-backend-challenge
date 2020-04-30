@@ -5,8 +5,6 @@
     /// </summary>
     public class **EntityName** : BaseEntity
     {
-        #region Construtores
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="**EntityName**"/> class.
         ///     Contrutor vazio utilizado pelo EntityFramework.
@@ -15,11 +13,5 @@
             : base()
         {
         }
-
-        #endregion Construtores
-
-        #region Propriedades
-
-        #endregion Propriedades
     }
 }

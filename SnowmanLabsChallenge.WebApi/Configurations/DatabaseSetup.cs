@@ -17,7 +17,11 @@ namespace SnowmanLabsChallenge.WebApi.Configurations
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<DefaultContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(
+                    configuration.GetConnectionString("DefaultConnection"),
+                    x => x.UseNetTopologySuite()
+                )
+            );
         }
     }
 }

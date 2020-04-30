@@ -25,6 +25,11 @@ namespace SnowmanLabsChallenge.Infra.CrossCutting.IoC
 
             // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
             // AddAppService //
+            services.AddScoped<ICategoryAppService, CategoryAppService>();
+            services.AddScoped<IFavoriteAppService, FavoriteAppService>();
+            services.AddScoped<IPictureAppService, PictureAppService>();
+            services.AddScoped<ICommentAppService, CommentAppService>();
+            services.AddScoped<ITouristSpotAppService, TouristSpotAppService>();
 
             #endregion Application
 
@@ -32,6 +37,11 @@ namespace SnowmanLabsChallenge.Infra.CrossCutting.IoC
 
             // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
             // AddNewRepository //
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IFavoriteRepository, FavoriteRepository>();
+            services.AddScoped<IPictureRepository, PictureRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<ITouristSpotRepository, TouristSpotRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<DefaultContext>();

@@ -10,7 +10,7 @@
     using System;
     using System.Net;
 
-    [Authorize]
+    // [Authorize]
     public abstract class BaseController<TViewModel, TFilter, TEntity> : ApiController
         where TViewModel : BaseViewModel
         where TFilter : BaseFilter

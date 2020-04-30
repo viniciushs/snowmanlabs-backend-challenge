@@ -262,7 +262,7 @@
         private static void AddDataContextConfig()
         {
             var contextConfigPath = Path.GetFullPath(Path.Combine(currentPath, @"..\SnowmanLabsChallenge.Infra.Data\Context"));
-            var contextConfigFilePath = string.Format(@"{0}\MainContext.cs", contextConfigPath);
+            var contextConfigFilePath = string.Format(@"{0}\DefaultContext.cs", contextConfigPath);
 
             string[] lines = File.ReadAllLines(contextConfigFilePath);
             using (var fs = File.Create(contextConfigFilePath))

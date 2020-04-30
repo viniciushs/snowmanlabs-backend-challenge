@@ -14,9 +14,9 @@
         ///     Construtor padrão de <see cref="**EntityName**Repository"/>.
         /// </summary>
         /// <param name="context">
-        ///     O contexto do repositório. Veja <see cref="MainContext"/>.
+        ///     O contexto do repositório. Veja <see cref="DefaultContext"/>.
         /// </param>
-        public **EntityName**Repository(MainContext context)
+        public **EntityName**Repository(DefaultContext context)
             : base(context)
         {
         }

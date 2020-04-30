@@ -1,6 +1,8 @@
 namespace SnowmanLabsChallenge.Infra.Data.Context
 {
     using Microsoft.EntityFrameworkCore;
+    using SnowmanLabsChallenge.Domain.Models;
+    using SnowmanLabsChallenge.Infra.Data.Mappings;
     using System;
     using System.Linq;
 
@@ -10,11 +12,26 @@ namespace SnowmanLabsChallenge.Infra.Data.Context
 
         // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
         // AddNewDbSet //
+        public DbSet<Category> Categorys { get; set; }
+
+        public DbSet<Favorite> Favorites { get; set; }
+
+        public DbSet<Picture> Pictures { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
+
+        public DbSet<TouristSpot> TouristSpots { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
             // AddNewMapping //
+            modelBuilder.ApplyConfiguration(new CategoryMap());
+            modelBuilder.ApplyConfiguration(new FavoriteMap());
+            modelBuilder.ApplyConfiguration(new PictureMap());
+            modelBuilder.ApplyConfiguration(new CommentMap());
+            modelBuilder.ApplyConfiguration(new TouristSpotMap());
 
             base.OnModelCreating(modelBuilder);
         }
