@@ -1,0 +1,6 @@
+﻿namespace SnowmanLabsChallenge.Application.Filters
+{
+    public class **EntityName**Filter : BaseFilter
+    {
+    }
+}

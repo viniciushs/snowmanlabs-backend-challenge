@@ -1,0 +1,53 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".txt" #>
+namespace SnowmanLabsChallenge.Infra.Data.Seeds
+{
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using SnowmanLabsChallenge.Domain.Models;
+    using SnowmanLabsChallenge.Infra.Data.Context;
+
+    public class **EntityName**Initializer
+    {
+        private NotifyContext context;
+        private ICollection<**EntityName**> **EntityNameLowerCase**s;
+
+        public **EntityName**Initializer(NotifyContext context)
+        {
+            this.context = context;
+        }
+
+        public async Task Seed()
+        {
+            this.**EntityNameLowerCase**s = this.Generate();
+
+            /*
+            var all**EntityName**s = this.context.**EntityName**s.ToList();
+            foreach (var **EntityNameLowerCase** in _**EntityNameLowerCase**s)
+            {
+                if (!all**EntityName**s.Any(c => c.Code == country.Code))
+                {
+                    this.context.Add(**EntityNameLowerCase**);
+                }
+            }
+
+            */
+
+            await this.context.SaveChangesAsync();
+        }
+
+        private ICollection<**EntityName**> Generate()
+        {
+            var **EntityNameLowerCase** = new List<**EntityName**>();
+
+            /* Insira seus dados na lista */
+
+            return **EntityNameLowerCase**;
+        }
+    }
+}

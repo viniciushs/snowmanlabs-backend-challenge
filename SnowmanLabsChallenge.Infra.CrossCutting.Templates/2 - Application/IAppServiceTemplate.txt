@@ -1,0 +1,13 @@
+﻿namespace SnowmanLabsChallenge.Application.Interfaces
+{
+    using SnowmanLabsChallenge.Application.Filters;
+    using SnowmanLabsChallenge.Application.ViewModels;
+    using SnowmanLabsChallenge.Domain.Models;
+
+    /// <summary>
+    ///     Interface de contrato de **EntityName** Application Service
+    /// </summary>
+    public interface I**EntityName**AppService : IBaseAppService<**EntityName**ViewModel, **EntityName**Filter, **EntityName**>
+    {
+    }
+}

@@ -1,0 +1,25 @@
+﻿namespace SnowmanLabsChallenge.Domain.Models
+{
+    /// <summary>
+    ///     Entidade **EntityName**.
+    /// </summary>
+    public class **EntityName** : BaseEntity
+    {
+        #region Construtores
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="**EntityName**"/> class.
+        ///     Contrutor vazio utilizado pelo EntityFramework.
+        /// </summary>
+        public **EntityName**()
+            : base()
+        {
+        }
+
+        #endregion Construtores
+
+        #region Propriedades
+
+        #endregion Propriedades
+    }
+}

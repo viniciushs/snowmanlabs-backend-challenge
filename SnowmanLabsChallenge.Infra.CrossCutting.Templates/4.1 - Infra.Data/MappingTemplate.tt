@@ -1,0 +1,44 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".txt" #>
+namespace SnowmanLabsChallenge.Infra.Data.Mappings
+{
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using SnowmanLabsChallenge.Domain.Models;
+
+    /// <summary>
+    ///     Configuração do Entity Framework para a classe <see cref="**EntityName**"/>.
+    /// </summary>
+    public class **EntityName**Map : BaseMap<**EntityName**>
+    {
+        public override void Configure(EntityTypeBuilder<**EntityName**> builder)
+        {
+            base.Configure(builder);
+
+            builder.ToTable("**EntityName**");
+            
+            /*
+            builder.Property(c => c.Nome)
+                .HasColumnType("varchar(256)")
+                .HasMaxLength(256)
+                .IsRequired();
+
+            builder.Property(c => c.Codigo)
+                .HasColumnType("char(3)")
+                .HasMaxLength(3);
+
+            builder.Property(c => c.CodigoBacen)
+                .HasColumnType("char(4)")
+                .HasMaxLength(4);
+
+            builder.HasMany(pais => pais.Estados)
+                .WithOne(est => est.Pais)
+                .HasForeignKey(est => est.PaisId);
+            */
+        }
+    }
+}

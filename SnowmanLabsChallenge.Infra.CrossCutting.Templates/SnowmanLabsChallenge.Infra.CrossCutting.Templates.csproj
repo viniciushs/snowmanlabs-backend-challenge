@@ -1,0 +1,109 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SnowmanLabsChallenge.Infra.CrossCutting.Utils\SnowmanLabsChallenge.Infra.CrossCutting.Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="1 - Services\ControllerTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ControllerTemplate.txt</LastGenOutput>
+    </None>
+    <None Update="1 - Services\ControllerTemplate.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ControllerTemplate.tt</DependentUpon>
+    </None>
+    <None Update="2 - Application\AppServiceTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AppServiceTemplate.txt</LastGenOutput>
+    </None>
+    <None Update="2 - Application\AppServiceTemplate.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppServiceTemplate.tt</DependentUpon>
+    </None>
+    <None Update="2 - Application\FilterTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FilterTemplate.txt</LastGenOutput>
+    </None>
+    <None Update="2 - Application\FilterTemplate.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FilterTemplate.tt</DependentUpon>
+    </None>
+    <None Update="2 - Application\IAppServiceTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IAppServiceTemplate.txt</LastGenOutput>
+    </None>
+    <None Update="2 - Application\IAppServiceTemplate.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IAppServiceTemplate.tt</DependentUpon>
+    </None>
+    <None Update="2 - Application\ViewModelTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ViewModelTemplate.txt</LastGenOutput>
+    </None>
+    <None Update="2 - Application\ViewModelTemplate.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </None>
+    <None Update="3 - Domain\IRepositoryTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IRepositoryTemplate.txt</LastGenOutput>
+    </None>
+    <None Update="3 - Domain\IRepositoryTemplate.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IRepositoryTemplate.tt</DependentUpon>
+    </None>
+    <None Update="3 - Domain\ModelTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelTemplate.txt</LastGenOutput>
+    </None>
+    <None Update="3 - Domain\ModelTemplate.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModelTemplate.tt</DependentUpon>
+    </None>
+    <None Update="4.1 - Infra.Data\MappingTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MappingTemplate.txt</LastGenOutput>
+    </None>
+    <None Update="4.1 - Infra.Data\MappingTemplate.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MappingTemplate.tt</DependentUpon>
+    </None>
+    <None Update="4.1 - Infra.Data\RepositoryTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RepositoryTemplate.txt</LastGenOutput>
+    </None>
+    <None Update="4.1 - Infra.Data\RepositoryTemplate.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RepositoryTemplate.tt</DependentUpon>
+    </None>
+    <None Update="4.1 - Infra.Data\SeedInitializerTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SeedInitializerTemplate.txt</LastGenOutput>
+    </None>
+    <None Update="4.1 - Infra.Data\SeedInitializerTemplate.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SeedInitializerTemplate.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+</Project>

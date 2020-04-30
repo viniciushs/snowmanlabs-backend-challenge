@@ -1,0 +1,32 @@
+﻿namespace SnowmanLabsChallenge.WebApi.Controllers
+{
+    using Microsoft.Extensions.Logging;
+    using SnowmanLabsChallenge.Application.Filters;
+    using SnowmanLabsChallenge.Application.Interfaces;
+    using SnowmanLabsChallenge.Application.ViewModels;
+    using SnowmanLabsChallenge.Domain.Models;
+
+    /// <summary>
+    ///     Controller de **EntityName**.
+    /// </summary>
+    public class **EntityName**Controller : BaseController<**EntityName**ViewModel, **EntityName**Filter, **EntityName**>
+    {
+        private new readonly I**EntityName**AppService appService;
+        private readonly ILogger logger;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="**EntityName**Controller"/> class.
+        ///     Contrutor padrão do **EntityName**Controller.
+        /// </summary>
+        /// <param name="appService">Application de serviço</param>
+        /// <param name="loggerFactory">Factory de gerenciamento de logs</param>
+        public **EntityName**Controller(
+            I**EntityName**AppService appService,
+            ILoggerFactory loggerFactory)
+            : base(appService)
+        {
+            this.appService = appService;
+            this.logger = loggerFactory.CreateLogger<**EntityName**Controller>();
+        }
+    }
+}
