@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace SnowmanLabsChallenge.Application.ViewModels
 {
     public class TouristSpotViewModel : BaseViewModel
@@ -9,5 +11,7 @@ namespace SnowmanLabsChallenge.Application.ViewModels
         public double Latitude { get; set; }
 
         public double Longitude { get; set; }
+
+        public ICollection<PictureViewModel> Pictures { get; set; }
     }
 }

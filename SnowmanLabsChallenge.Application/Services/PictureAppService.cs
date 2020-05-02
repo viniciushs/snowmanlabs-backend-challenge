@@ -8,12 +8,20 @@ namespace SnowmanLabsChallenge.Application.Services
     using SnowmanLabsChallenge.Domain.Models;
     using System.Linq.Expressions;
     using System;
+    using SnowmanLabsChallenge.Infra.CrossCutting.Core.Messages;
+    using SnowmanLabsChallenge.Infra.CrossCutting.Core.Interfaces;
+    using SnowmanLabsChallenge.Infra.CrossCutting.Utils.Builders;
+    using System.Configuration;
+    using Microsoft.Extensions.Configuration;
 
     /// <summary>
     ///     Implementação da <see cref="IPictureAppService"/>.
     /// </summary>
     public class PictureAppService : BaseAppService<PictureViewModel, PictureFilter, Picture>, IPictureAppService
     {
+        private readonly IFileService fileService;
+        private readonly IConfiguration configuration;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PictureAppService"/> class.
         ///     Construtor padrão de <see cref="PictureAppService"/>.
@@ -31,9 +39,58 @@ namespace SnowmanLabsChallenge.Application.Services
         public PictureAppService(
             IUnitOfWork uow,
             IMapper mapper,
-            IPictureRepository repository)
+            IPictureRepository repository,
+            IFileService fileService,
+            IConfiguration configuration)
             : base(uow, mapper, repository)
         {
+            this.fileService = fileService;
+            this.configuration = configuration;
+        }
+
+        public override PictureViewModel Add(PictureViewModel model, bool commit = true)
+        {
+            this.Validate(model);
+
+            if (string.IsNullOrEmpty(model.Url))
+            {
+                model.Url = this.configuration["AzureBlobUrl"] + Guid.NewGuid().ToString() + ".png";
+                this.fileService.Upload(model.Base64, model.Url);
+            }
+
+            var entity = this.mapper.Map<Picture>(model);
+            this.Validate(entity);
+
+            this.repository.Add(entity);
+            this.Commit(commit);
+
+            this.mapper.Map<Picture, PictureViewModel>(entity, model);
+
+            return model;
+        }
+
+        public override void Remove(int id, bool commit = true)
+        {
+            var entity = this.repository.GetById(id);
+            if (entity == null)
+            {
+                throw new SnowmanLabsChallengeException(Messages.NotFound);
+            }
+
+            this.fileService.Remove(entity.Url);
+
+            this.repository.Remove(id);
+            this.Commit(commit);
+        }
+
+        public override void Validate(PictureViewModel model)
+        {
+            base.Validate(model);
+
+            if (string.IsNullOrEmpty(model.Url) && string.IsNullOrEmpty(model.Base64))
+            {
+                throw new SnowmanLabsChallengeException("The url and base64 are empty.");
+            }
         }
 
         public override Expression<Func<Picture, bool>> Filter(PictureFilter filter)
@@ -42,11 +99,10 @@ namespace SnowmanLabsChallenge.Application.Services
 
             if (filter != null)
             {
-                // Adicione outros filtros de busca
-                // if (!string.IsNullOrEmpty(filter.Codigo))
-                // {
-                //     expression = expression.And(f => f.Codigo.ToLowerCase().Contains(filter.Codigo.ToLowerCase()));
-                // }
+                if (filter.TouristSpotId.HasValue)
+                {
+                    expression = expression.And(f => f.TouristSpotId == filter.TouristSpotId.Value);
+                }
             }
 
             return expression;

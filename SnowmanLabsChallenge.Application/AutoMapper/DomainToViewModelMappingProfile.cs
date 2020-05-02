@@ -19,7 +19,7 @@ namespace SnowmanLabsChallenge.Application.AutoMapper
             this.CreateMap<Comment, CommentViewModel>().MaxDepth(1);
 
             this.CreateMap<TouristSpot, TouristSpotViewModel>().MaxDepth(1)
-                .ForMember(dest => dest.Latitude, opt => opt.MapFrom((src, dest) => src.Location.Y ))
+                .ForMember(dest => dest.Latitude, opt => opt.MapFrom((src, dest) => src.Location.Y))
                 .ForMember(dest => dest.Longitude, opt => opt.MapFrom((src, dest) => src.Location.X));
         }
     }

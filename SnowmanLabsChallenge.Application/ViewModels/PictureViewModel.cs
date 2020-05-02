@@ -1,11 +1,11 @@
 namespace SnowmanLabsChallenge.Application.ViewModels
 {
-    using System;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
     public class PictureViewModel : BaseViewModel
     {
-        /* Insira aqui as suas propriedades */
+        public int TouristSpotId { get; set; }
+
+        public string Url { get; set; }
+
+        public string Base64 { get; set; }
     }
 }

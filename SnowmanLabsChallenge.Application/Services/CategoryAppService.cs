@@ -8,6 +8,8 @@ namespace SnowmanLabsChallenge.Application.Services
     using SnowmanLabsChallenge.Domain.Models;
     using System.Linq.Expressions;
     using System;
+    using SnowmanLabsChallenge.Infra.CrossCutting.Utils.Builders;
+    using System.Linq;
 
     /// <summary>
     ///     Implementação da <see cref="ICategoryAppService"/>.
@@ -42,31 +44,33 @@ namespace SnowmanLabsChallenge.Application.Services
 
             if (filter != null)
             {
-                // Adicione outros filtros de busca
-                // if (!string.IsNullOrEmpty(filter.Codigo))
-                // {
-                //     expression = expression.And(f => f.Codigo.ToLowerCase().Contains(filter.Codigo.ToLowerCase()));
-                // }
+                if (!string.IsNullOrEmpty(filter.Name))
+                {
+                    expression = expression.And(f => f.Name.Contains(filter.Name));
+                }
             }
 
             return expression;
         }
 
+        public override void Validate(Category model)
+        {
+            base.Validate(model);
+
+            var category = this.repository.GetBy(c => c.Id != model.Id && c.Name == model.Name).FirstOrDefault();
+            if (category != null)
+            {
+                throw new SnowmanLabsChallengeException("Already exists a category with that name.");
+            }
+        }
+
         public override Func<Category, object> OrderBy(CategoryFilter filter)
         {
-            Func<Category, object> orderBy;
-
-            switch (filter.SortBy.ToLower())
+            Func<Category, object> orderBy = (filter.SortBy.ToLower()) switch
             {
-                // Adicione outras ordenações
-                // case "descricao":
-                //     orderBy = (x => x.Descricao);
-                //     break;
-                default:
-                    orderBy = base.OrderBy(filter);
-                    break;
-            }
-
+                "name" => (x => x.Name),
+                _ => base.OrderBy(filter),
+            };
             return orderBy;
         }
     }

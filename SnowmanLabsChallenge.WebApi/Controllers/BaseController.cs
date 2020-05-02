@@ -70,6 +70,7 @@
         ///     Get all registers.
         /// </summary>
         [HttpGet]
+        [AllowAnonymous]
         public virtual IActionResult Get(TFilter filter)
         {
             try

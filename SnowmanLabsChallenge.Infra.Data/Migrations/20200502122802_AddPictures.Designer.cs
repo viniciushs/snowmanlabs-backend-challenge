@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using SnowmanLabsChallenge.Infra.Data.Context;
@@ -10,9 +11,10 @@ using SnowmanLabsChallenge.Infra.Data.Context;
 namespace SnowmanLabsChallenge.Infra.Data.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    partial class DefaultContextModelSnapshot : ModelSnapshot
+    [Migration("20200502122802_AddPictures")]
+    partial class AddPictures
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,27 +72,17 @@ namespace SnowmanLabsChallenge.Infra.Data.Migrations
                         .HasColumnName("Active")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("varchar(2047)")
-                        .HasMaxLength(2047);
-
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("CreatedOn")
                         .HasColumnType("datetime2")
                         .HasDefaultValue(null);
 
-                    b.Property<int>("TouristSpotId")
-                        .HasColumnType("int");
-
                     b.Property<Guid>("Uuid")
                         .HasColumnName("Uuid")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TouristSpotId");
 
                     b.HasIndex("Uuid");
 
@@ -212,15 +204,6 @@ namespace SnowmanLabsChallenge.Infra.Data.Migrations
                     b.HasIndex("Uuid");
 
                     b.ToTable("TouristSpot");
-                });
-
-            modelBuilder.Entity("SnowmanLabsChallenge.Domain.Models.Comment", b =>
-                {
-                    b.HasOne("SnowmanLabsChallenge.Domain.Models.TouristSpot", "TouristSpot")
-                        .WithMany("Comments")
-                        .HasForeignKey("TouristSpotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("SnowmanLabsChallenge.Domain.Models.Picture", b =>

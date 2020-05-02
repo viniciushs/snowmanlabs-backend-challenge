@@ -55,7 +55,7 @@ namespace SnowmanLabsChallenge.WebApi
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             // .NET Native DI Abstraction
-            services.AddDependencyInjectionSetup();
+            services.AddDependencyInjectionSetup(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

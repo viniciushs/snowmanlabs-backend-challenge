@@ -62,6 +62,11 @@ namespace SnowmanLabsChallenge.WebApi.Controllers
         {
             try
             {
+                if (body != null)
+                {
+                    body.TouristSpotId = touristSpotId;
+                }
+
                 var _added = this.commentAppService.Add(body);
                 return this.Response(_added, HttpStatusCode.Created, Messages.SaveSuccess);
             }

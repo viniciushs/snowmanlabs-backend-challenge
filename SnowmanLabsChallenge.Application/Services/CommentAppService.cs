@@ -8,12 +8,14 @@ namespace SnowmanLabsChallenge.Application.Services
     using SnowmanLabsChallenge.Domain.Models;
     using System.Linq.Expressions;
     using System;
+    using SnowmanLabsChallenge.Infra.CrossCutting.Utils.Builders;
 
     /// <summary>
     ///     Implementação da <see cref="ICommentAppService"/>.
     /// </summary>
     public class CommentAppService : BaseAppService<CommentViewModel, CommentFilter, Comment>, ICommentAppService
     {
+        private readonly ITouristSpotRepository touristSpotRepository;
         /// <summary>
         /// Initializes a new instance of the <see cref="CommentAppService"/> class.
         ///     Construtor padrão de <see cref="CommentAppService"/>.
@@ -31,9 +33,11 @@ namespace SnowmanLabsChallenge.Application.Services
         public CommentAppService(
             IUnitOfWork uow,
             IMapper mapper,
-            ICommentRepository repository)
+            ICommentRepository repository,
+            ITouristSpotRepository touristSpotRepository)
             : base(uow, mapper, repository)
         {
+            this.touristSpotRepository = touristSpotRepository;
         }
 
         public override Expression<Func<Comment, bool>> Filter(CommentFilter filter)
@@ -42,32 +46,29 @@ namespace SnowmanLabsChallenge.Application.Services
 
             if (filter != null)
             {
-                // Adicione outros filtros de busca
-                // if (!string.IsNullOrEmpty(filter.Codigo))
-                // {
-                //     expression = expression.And(f => f.Codigo.ToLowerCase().Contains(filter.Codigo.ToLowerCase()));
-                // }
+                if (filter.TouristSpotId.HasValue)
+                {
+                    expression = expression.And(f => f.TouristSpotId == filter.TouristSpotId);
+                }
+
+                if (!string.IsNullOrEmpty(filter.Content))
+                {
+                    expression = expression.And(f => f.Content.Contains(filter.Content));
+                }
             }
 
             return expression;
         }
 
-        public override Func<Comment, object> OrderBy(CommentFilter filter)
+        public override void Validate(Comment model)
         {
-            Func<Comment, object> orderBy;
+            base.Validate(model);
 
-            switch (filter.SortBy.ToLower())
+            var touristSpot = this.touristSpotRepository.GetById(model.TouristSpotId);
+            if (touristSpot == null)
             {
-                // Adicione outras ordenações
-                // case "descricao":
-                //     orderBy = (x => x.Descricao);
-                //     break;
-                default:
-                    orderBy = base.OrderBy(filter);
-                    break;
+                throw new SnowmanLabsChallengeException("Invalid tourist spot.");
             }
-
-            return orderBy;
         }
     }
 }

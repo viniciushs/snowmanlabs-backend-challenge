@@ -2,6 +2,7 @@ namespace SnowmanLabsChallenge.Domain.Models
 {
     using NetTopologySuite.Geometries;
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     ///     Entidade TouristSpot.
@@ -26,6 +27,7 @@ namespace SnowmanLabsChallenge.Domain.Models
             int categoryId,
             double latitude,
             double longitude)
+            : base(id, uuid, createdOn, active)
         {
             #region Validations
 
@@ -63,5 +65,21 @@ namespace SnowmanLabsChallenge.Domain.Models
         public int CategoryId { get; set; }
 
         public Category Category { get; set; }
+
+        private ICollection<Picture> pictures;
+
+        public ICollection<Picture> Pictures
+        {
+            get { return this.pictures ?? (this.pictures = new List<Picture>()); }
+            private set { this.pictures = value; }
+        }
+
+        private ICollection<Comment> comments;
+
+        public ICollection<Comment> Comments
+        {
+            get { return this.comments ?? (this.comments = new List<Comment>()); }
+            private set { this.comments = value; }
+        }
     }
 }

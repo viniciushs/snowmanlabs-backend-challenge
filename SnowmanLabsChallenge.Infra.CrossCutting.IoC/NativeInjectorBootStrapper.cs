@@ -1,19 +1,22 @@
 namespace SnowmanLabsChallenge.Infra.CrossCutting.IoC
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
     using SnowmanLabsChallenge.Application.Interfaces;
     using SnowmanLabsChallenge.Application.Services;
     using SnowmanLabsChallenge.Domain.Interfaces;
+    using SnowmanLabsChallenge.Infra.CrossCutting.Core.Interfaces;
+    using SnowmanLabsChallenge.Infra.CrossCutting.Core.Services;
     using SnowmanLabsChallenge.Infra.CrossCutting.Identity.Authorization;
     using SnowmanLabsChallenge.Infra.CrossCutting.Identity.Models;
     using SnowmanLabsChallenge.Infra.Data.Context;
     using SnowmanLabsChallenge.Infra.Data.Repository;
     using SnowmanLabsChallenge.Infra.Data.UoW;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.Extensions.DependencyInjection;
 
     public class NativeInjectorBootStrapper
     {
-        public static void RegisterServices(IServiceCollection services)
+        public static void RegisterServices(IServiceCollection services, IConfiguration configuration)
         {
             #region Authorization Polices
 
@@ -49,6 +52,11 @@ namespace SnowmanLabsChallenge.Infra.CrossCutting.IoC
             #endregion Infra - Data
 
             #region Services
+
+            services.AddSingleton<IFileService, FileService>(serviceProvider =>
+            {
+                return new FileService(configuration);
+            });
 
             #endregion Services
 

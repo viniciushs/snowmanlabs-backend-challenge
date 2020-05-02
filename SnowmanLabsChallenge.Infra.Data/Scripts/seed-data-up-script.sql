@@ -1,7 +1,4 @@
-﻿USE [webapi--dev]
-GO
-
-BEGIN
+﻿BEGIN
 	IF NOT EXISTS(SELECT 1 FROM Category C WHERE LOWER(C.Name) = 'park')
     BEGIN
         INSERT INTO Category(Uuid, CreatedOn, Active, Name) 

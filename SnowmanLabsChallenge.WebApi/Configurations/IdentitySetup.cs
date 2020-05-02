@@ -1,13 +1,12 @@
-﻿using System;
-using System.Text;
-using SnowmanLabsChallenge.Infra.CrossCutting.Identity.Authorization;
-using SnowmanLabsChallenge.Infra.CrossCutting.Identity.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using SnowmanLabsChallenge.Infra.CrossCutting.Identity.Models;
+using System;
+using System.Text;
 
 namespace SnowmanLabsChallenge.WebApi.Configurations
 {
@@ -64,11 +63,7 @@ namespace SnowmanLabsChallenge.WebApi.Configurations
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("CanWriteCustomerData", policy => policy.Requirements.Add(new ClaimRequirement("Customers", "Write")));
-                options.AddPolicy("CanRemoveCustomerData", policy => policy.Requirements.Add(new ClaimRequirement("Customers", "Remove")));
-            });
+            services.AddAuthorization();
         }
     }
 }
