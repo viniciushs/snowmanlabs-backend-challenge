@@ -87,5 +87,21 @@ namespace SnowmanLabsChallenge.Domain.Models
             get { return this.comments ?? (this.comments = new List<Comment>()); }
             private set { this.comments = value; }
         }
+
+        private ICollection<Favorite> favorites;
+
+        public ICollection<Favorite> Favorites
+        {
+            get { return this.favorites ?? (this.favorites = new List<Favorite>()); }
+            private set { this.favorites = value; }
+        }
+
+        private ICollection<Vote> votes;
+
+        public ICollection<Vote> Votes
+        {
+            get { return this.votes ?? (this.votes = new List<Vote>()); }
+            private set { this.votes = value; }
+        }
     }
 }

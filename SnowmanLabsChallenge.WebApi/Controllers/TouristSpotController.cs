@@ -20,6 +20,7 @@ namespace SnowmanLabsChallenge.WebApi.Controllers
         private readonly ICommentAppService commentAppService;
         private readonly IFavoriteAppService favoriteAppService;
         private readonly IPictureAppService pictureAppService;
+        private readonly IVoteAppService voteAppService;
 
         private readonly ILogger logger;
 
@@ -34,6 +35,7 @@ namespace SnowmanLabsChallenge.WebApi.Controllers
             ICommentAppService commentAppService,
             IFavoriteAppService favoriteAppService,
             IPictureAppService pictureAppService,
+            IVoteAppService voteAppService,
             ILoggerFactory loggerFactory)
             : base(appService)
         {
@@ -41,6 +43,7 @@ namespace SnowmanLabsChallenge.WebApi.Controllers
             this.commentAppService = commentAppService;
             this.favoriteAppService = favoriteAppService;
             this.pictureAppService = pictureAppService;
+            this.voteAppService = voteAppService;
 
             this.logger = loggerFactory.CreateLogger<TouristSpotController>();
         }
@@ -315,6 +318,78 @@ namespace SnowmanLabsChallenge.WebApi.Controllers
                 var userId = this.UserId.Value;
                 this.favoriteAppService.Remove(touristSpotId, userId);
                 return this.Response(touristSpotId, HttpStatusCode.OK, Messages.DeleteSuccess);
+            }
+            catch (SnowmanLabsChallengeException slcex)
+            {
+                return this.Response(slcex);
+            }
+            catch (Exception ex)
+            {
+                return this.Response(ex);
+            }
+        }
+
+        [HttpGet("{touristSpotId:int}/vote/count")]
+        [AllowAnonymous]
+        public IActionResult VoteCount([FromRoute]int touristSpotId)
+        {
+            try
+            {
+                var filter = new VoteFilter { TouristSpotId = touristSpotId };
+                var results = this.voteAppService.Count(filter);
+                return this.Response(results);
+            }
+            catch (SnowmanLabsChallengeException slcex)
+            {
+                return this.Response(slcex);
+            }
+            catch (Exception ex)
+            {
+                return this.Response(ex);
+            }
+        }
+
+        [HttpPost("{touristSpotId:int}/vote/up")]
+        public IActionResult VoteUp([FromRoute] int touristSpotId)
+        {
+            try
+            {
+                var body = new VoteViewModel
+                {
+                    UserId = this.UserId.Value,
+                    TouristSpotId = touristSpotId,
+                    Up = true,
+                    Down = false
+                };
+
+                var _added = this.voteAppService.Add(body);
+                return this.Response(_added, HttpStatusCode.Created, Messages.SaveSuccess);
+            }
+            catch (SnowmanLabsChallengeException slcex)
+            {
+                return this.Response(slcex);
+            }
+            catch (Exception ex)
+            {
+                return this.Response(ex);
+            }
+        }
+
+        [HttpPost("{touristSpotId:int}/vote/down")]
+        public IActionResult VoteDown([FromRoute] int touristSpotId)
+        {
+            try
+            {
+                var body = new VoteViewModel
+                {
+                    UserId = this.UserId.Value,
+                    TouristSpotId = touristSpotId,
+                    Up = false,
+                    Down = true
+                };
+
+                var _added = this.voteAppService.Add(body);
+                return this.Response(_added, HttpStatusCode.Created, Messages.SaveSuccess);
             }
             catch (SnowmanLabsChallengeException slcex)
             {

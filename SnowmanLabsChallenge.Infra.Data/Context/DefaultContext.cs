@@ -12,6 +12,8 @@ namespace SnowmanLabsChallenge.Infra.Data.Context
 
         // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
         // AddNewDbSet //
+        public DbSet<Vote> Votes { get; set; }
+
         public DbSet<Category> Categorys { get; set; }
 
         public DbSet<Favorite> Favorites { get; set; }
@@ -27,6 +29,7 @@ namespace SnowmanLabsChallenge.Infra.Data.Context
         {
             // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
             // AddNewMapping //
+            modelBuilder.ApplyConfiguration(new VoteMap());
             modelBuilder.ApplyConfiguration(new CategoryMap());
             modelBuilder.ApplyConfiguration(new FavoriteMap());
             modelBuilder.ApplyConfiguration(new PictureMap());

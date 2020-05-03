@@ -3,6 +3,8 @@ namespace SnowmanLabsChallenge.Application.AutoMapper
     using SnowmanLabsChallenge.Application.ViewModels;
     using SnowmanLabsChallenge.Domain.Models;
     using global::AutoMapper;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class DomainToViewModelMappingProfile : Profile
     {
@@ -10,6 +12,8 @@ namespace SnowmanLabsChallenge.Application.AutoMapper
         {
             // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
             // AddNewConf //
+            this.CreateMap<Vote, VoteViewModel>().MaxDepth(1);
+
             this.CreateMap<Category, CategoryViewModel>().MaxDepth(1);
 
             this.CreateMap<Favorite, FavoriteViewModel>().MaxDepth(1);

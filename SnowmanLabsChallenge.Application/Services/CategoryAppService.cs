@@ -10,12 +10,15 @@ namespace SnowmanLabsChallenge.Application.Services
     using System;
     using SnowmanLabsChallenge.Infra.CrossCutting.Utils.Builders;
     using System.Linq;
+    using SnowmanLabsChallenge.Infra.CrossCutting.Core.Messages;
 
     /// <summary>
     ///     Implementação da <see cref="ICategoryAppService"/>.
     /// </summary>
     public class CategoryAppService : BaseAppService<CategoryViewModel, CategoryFilter, Category>, ICategoryAppService
     {
+        private readonly ITouristSpotRepository touristSpotRepository;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoryAppService"/> class.
         ///     Construtor padrão de <see cref="CategoryAppService"/>.
@@ -33,9 +36,11 @@ namespace SnowmanLabsChallenge.Application.Services
         public CategoryAppService(
             IUnitOfWork uow,
             IMapper mapper,
-            ICategoryRepository repository)
+            ICategoryRepository repository,
+            ITouristSpotRepository touristSpotRepository)
             : base(uow, mapper, repository)
         {
+            this.touristSpotRepository = touristSpotRepository;
         }
 
         public override Expression<Func<Category, bool>> Filter(CategoryFilter filter)
@@ -51,6 +56,23 @@ namespace SnowmanLabsChallenge.Application.Services
             }
 
             return expression;
+        }
+
+        public override void Remove(int id, bool commit = true)
+        {
+            var entity = this.repository.GetBy(c => c.Id == id, c => c.TouristSpots).FirstOrDefault();
+            if (entity == null)
+            {
+                throw new SnowmanLabsChallengeException(Messages.NotFound);
+            }
+
+            if (entity.TouristSpots.Any())
+            {
+                throw new SnowmanLabsChallengeException("You can not delete this category because there are tourist spots using it.");
+            }
+
+            this.repository.Remove(id);
+            this.Commit(commit);
         }
 
         public override void Validate(Category model)

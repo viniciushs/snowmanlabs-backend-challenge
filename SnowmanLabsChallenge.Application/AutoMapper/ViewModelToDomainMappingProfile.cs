@@ -10,6 +10,8 @@ namespace SnowmanLabsChallenge.Application.AutoMapper
         {
             // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
             // AddNewConf //
+            this.CreateMap<VoteViewModel, Vote>();
+
             this.CreateMap<CategoryViewModel, Category>()
                 .IgnoreAllPropertiesWithAnInaccessibleSetter()
                 .ConstructUsing(src => new Category(

@@ -28,6 +28,7 @@ namespace SnowmanLabsChallenge.Infra.CrossCutting.IoC
 
             // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
             // AddAppService //
+            services.AddScoped<IVoteAppService, VoteAppService>();
             services.AddScoped<ICategoryAppService, CategoryAppService>();
             services.AddScoped<IFavoriteAppService, FavoriteAppService>();
             services.AddScoped<IPictureAppService, PictureAppService>();
@@ -40,6 +41,7 @@ namespace SnowmanLabsChallenge.Infra.CrossCutting.IoC
 
             // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
             // AddNewRepository //
+            services.AddScoped<IVoteRepository, VoteRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IFavoriteRepository, FavoriteRepository>();
             services.AddScoped<IPictureRepository, PictureRepository>();

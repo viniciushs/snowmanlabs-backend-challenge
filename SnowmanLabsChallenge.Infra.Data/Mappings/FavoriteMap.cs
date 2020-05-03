@@ -14,25 +14,12 @@ namespace SnowmanLabsChallenge.Infra.Data.Mappings
             base.Configure(builder);
 
             builder.ToTable("Favorite");
-            
-            /*
-            builder.Property(c => c.Nome)
-                .HasColumnType("varchar(256)")
-                .HasMaxLength(256)
+
+            builder.HasOne(f => f.TouristSpot)
+                .WithMany(ts => ts.Favorites)
+                .HasForeignKey(f => f.TouristSpotId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired();
-
-            builder.Property(c => c.Codigo)
-                .HasColumnType("char(3)")
-                .HasMaxLength(3);
-
-            builder.Property(c => c.CodigoBacen)
-                .HasColumnType("char(4)")
-                .HasMaxLength(4);
-
-            builder.HasMany(pais => pais.Estados)
-                .WithOne(est => est.Pais)
-                .HasForeignKey(est => est.PaisId);
-            */
         }
     }
 }
