@@ -14,7 +14,8 @@ namespace SnowmanLabsChallenge.Application.AutoMapper
 
             this.CreateMap<Favorite, FavoriteViewModel>().MaxDepth(1);
 
-            this.CreateMap<Picture, PictureViewModel>().MaxDepth(1);
+            this.CreateMap<Picture, PictureViewModel>().MaxDepth(1)
+                .ForMember(dest => dest.Base64, opt => opt.Ignore());
 
             this.CreateMap<Comment, CommentViewModel>().MaxDepth(1);
 

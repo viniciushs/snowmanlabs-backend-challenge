@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 
 namespace SnowmanLabsChallenge.Application.ViewModels
 {
     public class TouristSpotViewModel : BaseViewModel
     {
+        public Guid OwnerId { get; set; }
+
         public string Name { get; set; }
 
         public int CategoryId { get; set; }
@@ -12,6 +15,12 @@ namespace SnowmanLabsChallenge.Application.ViewModels
 
         public double Longitude { get; set; }
 
-        public ICollection<PictureViewModel> Pictures { get; set; }
+        private ICollection<PictureViewModel> pictures;
+
+        public ICollection<PictureViewModel> Pictures
+        {
+            get { return this.pictures ?? (this.pictures = new List<PictureViewModel>()); }
+            set { this.pictures = value; }
+        }
     }
 }

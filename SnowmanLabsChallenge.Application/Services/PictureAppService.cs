@@ -69,6 +69,22 @@ namespace SnowmanLabsChallenge.Application.Services
             return model;
         }
 
+        public void Remove(int id, Guid requesterId, bool commit = true)
+        {
+            var entity = this.repository.GetById(id);
+            if (entity == null)
+            {
+                throw new SnowmanLabsChallengeException(Messages.NotFound);
+            }
+
+            if (entity.OwnerId != requesterId)
+            {
+                throw new SnowmanLabsChallengeException("You cannot delete other's pictures.");
+            }
+
+            base.Remove(id, commit);
+        }
+
         public override void Remove(int id, bool commit = true)
         {
             var entity = this.repository.GetById(id);
@@ -77,7 +93,10 @@ namespace SnowmanLabsChallenge.Application.Services
                 throw new SnowmanLabsChallengeException(Messages.NotFound);
             }
 
-            this.fileService.Remove(entity.Url);
+            if (entity.Url.Contains(this.configuration["AzureBlobUrl"]))
+            {
+                this.fileService.Remove(entity.Url);
+            }
 
             this.repository.Remove(id);
             this.Commit(commit);

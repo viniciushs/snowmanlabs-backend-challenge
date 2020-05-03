@@ -89,6 +89,11 @@ namespace SnowmanLabsChallenge.Application.Services
 
             if (filter != null)
             {
+                if (filter.OwnerId.HasValue)
+                {
+                    expression = expression.And(f => f.OwnerId == filter.OwnerId.Value);
+                }
+
                 if (!string.IsNullOrEmpty(filter.Name))
                 {
                     expression = expression.And(f => f.Name.Contains(filter.Name));

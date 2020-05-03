@@ -21,6 +21,7 @@ namespace SnowmanLabsChallenge.Domain.Models
             Guid uuid,
             DateTime createdOn,
             bool active,
+            Guid ownerId,
             int touristSpotId,
             string content)
             : base(id, uuid, createdOn, active)
@@ -50,14 +51,17 @@ namespace SnowmanLabsChallenge.Domain.Models
 
             #endregion Validations
 
+            this.OwnerId = ownerId;
             this.TouristSpotId = touristSpotId;
             this.Content = content;
         }
 
-        public int TouristSpotId { get; set; }
+        public Guid OwnerId { get; private set; }
+
+        public int TouristSpotId { get; private set; }
 
         public TouristSpot TouristSpot { get; set; }
 
-        public string Content { get; set; }
+        public string Content { get; private set; }
     }
 }

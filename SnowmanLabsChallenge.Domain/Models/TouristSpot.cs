@@ -23,6 +23,7 @@ namespace SnowmanLabsChallenge.Domain.Models
             Guid uuid,
             DateTime createdOn,
             bool active,
+            Guid ownerId,
             string name,
             int categoryId,
             double latitude,
@@ -54,9 +55,14 @@ namespace SnowmanLabsChallenge.Domain.Models
 
             #endregion Validations
 
+            this.OwnerId = ownerId;
+
             var location = new Point(longitude, latitude) { SRID = 4326 };
             this.Location = location;
         }
+
+        // Relationship to ApplicationUser 
+        public Guid OwnerId { get; private set; }
 
         public string Name { get; set; }
 

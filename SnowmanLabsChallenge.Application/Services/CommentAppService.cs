@@ -9,6 +9,7 @@ namespace SnowmanLabsChallenge.Application.Services
     using System.Linq.Expressions;
     using System;
     using SnowmanLabsChallenge.Infra.CrossCutting.Utils.Builders;
+    using SnowmanLabsChallenge.Infra.CrossCutting.Core.Messages;
 
     /// <summary>
     ///     Implementação da <see cref="ICommentAppService"/>.
@@ -38,6 +39,22 @@ namespace SnowmanLabsChallenge.Application.Services
             : base(uow, mapper, repository)
         {
             this.touristSpotRepository = touristSpotRepository;
+        }
+
+        public void Remove(int id, Guid requesterId, bool commit = true)
+        {
+            var entity = this.repository.GetById(id);
+            if (entity == null)
+            {
+                throw new SnowmanLabsChallengeException(Messages.NotFound);
+            }
+
+            if (entity.OwnerId != requesterId)
+            {
+                throw new SnowmanLabsChallengeException("You cannot delete other's comments.");
+            }
+
+            base.Remove(id, commit);
         }
 
         public override Expression<Func<Comment, bool>> Filter(CommentFilter filter)

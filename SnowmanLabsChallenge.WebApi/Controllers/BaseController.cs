@@ -10,7 +10,6 @@
     using System;
     using System.Net;
 
-    // [Authorize]
     public abstract class BaseController<TViewModel, TFilter, TEntity> : ApiController
         where TViewModel : BaseViewModel
         where TFilter : BaseFilter
@@ -28,6 +27,7 @@
         ///     Get the register that has the ID passed as parameter.
         /// </summary>
         [HttpGet("{id:int}")]
+        [AllowAnonymous]
         public virtual IActionResult Get(int id)
         {
             try
@@ -49,6 +49,7 @@
         ///     Get the register that has the UUID passed as parameter.
         /// </summary>
         [HttpGet("{guid:guid}")]
+        [AllowAnonymous]
         public virtual IActionResult Get(Guid guid)
         {
             try

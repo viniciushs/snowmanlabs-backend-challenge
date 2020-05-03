@@ -11,6 +11,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SnowmanLabsChallenge.WebApi.Controllers
 {
@@ -35,6 +36,7 @@ namespace SnowmanLabsChallenge.WebApi.Controllers
 
         [HttpPost]
         [Route("register")]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(UserRegistration userRegistration)
         {
             try
@@ -76,6 +78,7 @@ namespace SnowmanLabsChallenge.WebApi.Controllers
 
         [HttpPost]
         [Route("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(UserLogin userLogin)
         {
             try
@@ -89,7 +92,7 @@ namespace SnowmanLabsChallenge.WebApi.Controllers
 
                 if (!result.Succeeded)
                 {
-                    throw new SnowmanLabsChallengeException(result.ToString());
+                    throw new SnowmanLabsChallengeException("Email or password invalid.");
                 }
 
                 var token = await GenerateJwt(userLogin.Email);
@@ -110,6 +113,7 @@ namespace SnowmanLabsChallenge.WebApi.Controllers
             var user = await _userManager.FindByEmailAsync(email);
             var claims = await _userManager.GetClaimsAsync(user);
 
+            claims.Add(new Claim("userId", user.Id));
             claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
             claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
 

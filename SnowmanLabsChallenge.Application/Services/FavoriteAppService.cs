@@ -8,6 +8,9 @@ namespace SnowmanLabsChallenge.Application.Services
     using SnowmanLabsChallenge.Domain.Models;
     using System.Linq.Expressions;
     using System;
+    using System.Linq;
+    using SnowmanLabsChallenge.Infra.CrossCutting.Core.Messages;
+    using SnowmanLabsChallenge.Infra.CrossCutting.Utils.Builders;
 
     /// <summary>
     ///     Implementação da <see cref="IFavoriteAppService"/>.
@@ -36,17 +39,55 @@ namespace SnowmanLabsChallenge.Application.Services
         {
         }
 
+        public override FavoriteViewModel Add(FavoriteViewModel model, bool commit = true)
+        {
+            this.Validate(model);
+
+            var entity = this.repository.GetBy(f =>
+                f.UserId == model.UserId &&
+                f.TouristSpotId == model.TouristSpotId,
+                true
+            ).FirstOrDefault();
+
+            if (entity != null)
+            {
+                this.mapper.Map<Favorite, FavoriteViewModel>(entity, model);
+            }
+            else
+            {
+                model = base.Add(model, commit);
+            }
+
+            return model;
+        }
+
+        public void Remove(int touristSpotId, Guid requesterId, bool commit = true)
+        {
+            var entity = this.repository.GetBy(f => f.TouristSpotId == touristSpotId && f.UserId == requesterId).FirstOrDefault();
+            if (entity == null)
+            {
+                return;
+            }
+
+            var id = entity.Id;
+            this.Remove(id, commit);
+        }
+
         public override Expression<Func<Favorite, bool>> Filter(FavoriteFilter filter)
         {
             var expression = base.Filter(filter);
 
             if (filter != null)
             {
-                // Adicione outros filtros de busca
-                // if (!string.IsNullOrEmpty(filter.Codigo))
-                // {
-                //     expression = expression.And(f => f.Codigo.ToLowerCase().Contains(filter.Codigo.ToLowerCase()));
-                // }
+                if (filter.TouristSpotId.HasValue)
+                {
+                    expression = expression.And(f => f.TouristSpotId == filter.TouristSpotId.Value);
+                }
+
+                if (filter.UserId.HasValue)
+                {
+                    expression = expression.And(f => f.UserId == filter.UserId.Value);
+                }
             }
 
             return expression;

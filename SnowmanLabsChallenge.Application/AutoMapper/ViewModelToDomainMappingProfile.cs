@@ -20,7 +20,16 @@ namespace SnowmanLabsChallenge.Application.AutoMapper
                     src.Name)
                 );
 
-            this.CreateMap<FavoriteViewModel, Favorite>();
+            this.CreateMap<FavoriteViewModel, Favorite>()
+                .IgnoreAllPropertiesWithAnInaccessibleSetter()
+                .ConstructUsing(src => new Favorite(
+                    src.Id,
+                    src.Uuid,
+                    src.CreatedOn,
+                    src.Active,
+                    src.UserId,
+                    src.TouristSpotId)
+                );
 
             this.CreateMap<PictureViewModel, Picture>()
                 .IgnoreAllPropertiesWithAnInaccessibleSetter()
@@ -29,6 +38,7 @@ namespace SnowmanLabsChallenge.Application.AutoMapper
                     src.Uuid,
                     src.CreatedOn,
                     src.Active,
+                    src.OwnerId,
                     src.TouristSpotId,
                     src.Url)
                 );
@@ -40,6 +50,7 @@ namespace SnowmanLabsChallenge.Application.AutoMapper
                     src.Uuid,
                     src.CreatedOn,
                     src.Active,
+                    src.OwnerId,
                     src.TouristSpotId,
                     src.Content)
                 );
@@ -51,6 +62,7 @@ namespace SnowmanLabsChallenge.Application.AutoMapper
                     src.Uuid,
                     src.CreatedOn,
                     src.Active,
+                    src.OwnerId,
                     src.Name,
                     src.CategoryId,
                     src.Latitude,
