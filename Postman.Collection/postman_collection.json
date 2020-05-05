@@ -1,0 +1,570 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SnowmanLabs Challenge - Vinicius",
+		"_postman_id": "e1799ac5-9dba-09ac-4fba-68f78318294c",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Account",
+			"description": "",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"url": "{{endpoint}}/Account/login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"string\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"url": "{{endpoint}}/Account/register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"string\",\n  \"passwordConfirm\": \"string\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tourist Spot",
+			"description": "",
+			"item": [
+				{
+					"name": "Add a new TouristSpot",
+					"request": {
+						"url": "{{endpoint}}/TouristSpot",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"string2\",\n  \"categoryId\": 2,\n  \"latitude\": -47.2,\n  \"longitude\": -20.1,\n  \"pictures\": [\n    {\n      \"url\": \"https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png\"\n    }\n  ]\n}"
+						},
+						"description": "As a logged in user, I want to register a tourist spot (picture, name, geographical location and category)."
+					},
+					"response": []
+				},
+				{
+					"name": "Get TouristSpot by Name",
+					"request": {
+						"url": {
+							"raw": "{{endpoint}}/TouristSpot?Name=name",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"TouristSpot"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "name",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "As a logged in user, I want to search for tourist spots by name.\n\nRemember to change the QueryString called by 'Name' to search."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Comment into TouristSpot",
+					"request": {
+						"url": "{{endpoint}}/TouristSpot/7/comment",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"content\": \"string\"\n}"
+						},
+						"description": "As a logged in user, I want to comment about a tourist spot.\n\nRemember to change the TouristSpotId in the URL and change the body containing the content of the comment."
+					},
+					"response": []
+				},
+				{
+					"name": "Get TouristSpot's Comments",
+					"request": {
+						"url": {
+							"raw": "{{endpoint}}/TouristSpot/7/comment?PageNumber=1&PageSize=100&HasPagination=true",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"TouristSpot",
+								"7",
+								"comment"
+							],
+							"query": [
+								{
+									"key": "PageNumber",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "PageSize",
+									"value": "100",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "HasPagination",
+									"value": "true",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "As a logged in user, I want to see comments about a tourist spot."
+					},
+					"response": []
+				},
+				{
+					"name": "Add a Picture with URL into TouristSpot",
+					"request": {
+						"url": "{{endpoint}}/TouristSpot/7/picture",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"url\": \"https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png\"\n}"
+						},
+						"description": "As a logged in user, I want to add pictures to a tourist spot.\n\nIn this case we assume that picture has a URL."
+					},
+					"response": []
+				},
+				{
+					"name": "Add a Picture with Base64 into TouristSpot",
+					"request": {
+						"url": "{{endpoint}}/TouristSpot/7/picture",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"base64\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkBAMAAACCzIhnAAAAG1BMVEXMzMyWlpacnJy+vr6jo6PFxcW3t7eqqqqxsbHbm8QuAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAiklEQVRYhe3QMQ6EIBAF0C+GSInF9mYTs+1ewRsQbmBlayysKefYO2asXbbYxvxHQj6ECQMAEREREf2NQ/fCtp5Zky6vtRMkSJEzhyISynWJnzH6Z8oQlzS7lEc/fLmmQUSvc16OrCPqRl1JePxQYo1ZSWVj9nxrrOb5esw+eXdvzTWfTERERHRXH4tWFZGswQ2yAAAAAElFTkSuQmCC\"\n}"
+						},
+						"description": "As a logged in user, I want to add pictures to a tourist spot.\n\nIn this case, we assume the image doesn't have a URL and we need to upload to server."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Picture from TouristSpot",
+					"request": {
+						"url": "{{endpoint}}/TouristSpot/7/picture/3",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "As a logged in user, I want to remove pictures I added to a tourist spot."
+					},
+					"response": []
+				},
+				{
+					"name": "Add the TouristSpot into my Favorite List",
+					"request": {
+						"url": "{{endpoint}}/TouristSpot/7/favorite/add",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "As a logged in user, I want to favorite a tourist spot."
+					},
+					"response": []
+				},
+				{
+					"name": "See the TouristSpot Favorite List",
+					"request": {
+						"url": "{{endpoint}}/Favorite/mine",
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "As a logged in user, I want to see my favorites tourist spots."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove the TouristSpot from my Favorite List",
+					"request": {
+						"url": "{{endpoint}}/TouristSpot/7/favorite/remove",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "As a logged in user, I want to remove a tourist spot from my favorites."
+					},
+					"response": []
+				},
+				{
+					"name": "Vote UP to TouristSpot",
+					"request": {
+						"url": "{{endpoint}}/TouristSpot/7/vote/up",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "As a logged in user, I want to upvote a tourist spot."
+					},
+					"response": []
+				},
+				{
+					"name": "Vote Down to TouristSpot",
+					"request": {
+						"url": "{{endpoint}}/TouristSpot/7/vote/down",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "TouristSpot that are mine",
+					"request": {
+						"url": "{{endpoint}}/TouristSpot/mine",
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "As a logged in user, I want to see the tourist spots I registered."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"description": "",
+			"item": [
+				{
+					"name": "Save a new Category",
+					"request": {
+						"url": "{{endpoint}}/Category",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"string\"\n}"
+						},
+						"description": "As a logged in user, I want to create new categories."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
