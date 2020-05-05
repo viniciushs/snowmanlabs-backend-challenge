@@ -17,9 +17,9 @@ This is the solution to the problem proposed by SnowmanLabs: https://github.com/
 
 * Architecture based on ASP.NET Core 3.1
 * Patherns used:
-** DDD, SOLID and Clean Code
-** Unit of Work
-** Repositories and Generic Repositories
+  * DDD, SOLID and Clean Code
+  * Unit of Work
+  * Repositories and Generic Repositories
 * ASP.NET WebApi Core 3.1
 * Entity Framework Core 3.1 using Code First with SQL Server
 * ASP.NET Identity using JWT
@@ -47,15 +47,15 @@ This is the solution to the problem proposed by SnowmanLabs: https://github.com/
 * Open the solution using a Visual Studio.
 * Select the SnowmanLabsChallenge.WebApi to be the main project;
 * Change the connection string located into app.settings in SnowmanLabsChallenge.WebApi;
-** ConnectionStrings:DefaultConnection
+  * ConnectionStrings:DefaultConnection
 * Change the AzureBlob Configuration located into app.settings in SnowmanLabsChallenge.WebApi:
-** AzureBlobAccountName
-** AzureBlobAccountKey
-** AzureBlobUrl
+  * AzureBlobAccountName
+  * AzureBlobAccountKey
+  * AzureBlobUrl
 * Into Package Manager Console, choose the SnowmanLabsChallenge.Inra.Data as Default Project;
 * Execute the following command to insert the tables and seed:
-** update-database -Context DefaultContext
-** update-database -Context ApplicationDbContext
+  * update-database -Context DefaultContext
+  * update-database -Context ApplicationDbContext
 
 ## Progress
 
@@ -84,5 +84,5 @@ This is the solution to the problem proposed by SnowmanLabs: https://github.com/
 
 ## Todos
 
- - Write MORE Tests
- - Add a Facebook Auth
+* Write MORE Tests
+* Add a Facebook Auth
