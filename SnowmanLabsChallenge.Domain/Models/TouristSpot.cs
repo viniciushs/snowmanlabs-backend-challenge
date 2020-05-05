@@ -53,9 +53,21 @@ namespace SnowmanLabsChallenge.Domain.Models
                 throw new SnowmanLabsChallengeException("Invalid category.");
             }
 
+            if (latitude < -90 || latitude > 90)
+            {
+                throw new SnowmanLabsChallengeException("Latitude must be greater than -90 and less than 90.");
+            }
+
+            if (longitude < -180 || longitude > 180)
+            {
+                throw new SnowmanLabsChallengeException("Longitude must be greater than -180 and less than 180.");
+            }
+
             #endregion Validations
 
             this.OwnerId = ownerId;
+            this.Name = name;
+            this.CategoryId = categoryId;
 
             var location = new Point(longitude, latitude) { SRID = 4326 };
             this.Location = location;
