@@ -39,7 +39,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowmanLabsChallenge.Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowmanLabsChallenge.Application.Tests", "SnowmanLabsChallenge.Application.Tests\SnowmanLabsChallenge.Application.Tests.csproj", "{458EFEC0-2B75-4236-9303-386C0DF6039A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowmanLabsChallenge.Infra.CrossCutting.Utils.Tests", "SnowmanLabsChallenge.Infra.CrossCutting.Utils.Tests\SnowmanLabsChallenge.Infra.CrossCutting.Utils.Tests.csproj", "{4C4BBE42-90CF-4044-8184-82A704A30E19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowmanLabsChallenge.Infra.CrossCutting.Utils.Tests", "SnowmanLabsChallenge.Infra.CrossCutting.Utils.Tests\SnowmanLabsChallenge.Infra.CrossCutting.Utils.Tests.csproj", "{4C4BBE42-90CF-4044-8184-82A704A30E19}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6 - Postman Collection", "6 - Postman Collection", "{01033BDE-79F4-4F9A-8A7C-126A0F9FD27A}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\Vinicius\Desktop\postman_collection.json = C:\Users\Vinicius\Desktop\postman_collection.json
+		C:\Users\Vinicius\Desktop\postman_environment.json = C:\Users\Vinicius\Desktop\postman_environment.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

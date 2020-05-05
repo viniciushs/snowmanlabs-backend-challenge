@@ -9,6 +9,7 @@ namespace SnowmanLabsChallenge.Application.Services
     using System.Linq.Expressions;
     using System;
     using System.Linq;
+    using SnowmanLabsChallenge.Infra.CrossCutting.Utils.Builders;
 
     /// <summary>
     ///     Implementação da <see cref="IVoteAppService"/>.
@@ -94,6 +95,37 @@ namespace SnowmanLabsChallenge.Application.Services
             result.Down = downVotesResult.Page.TotalElements;
 
             return result;
+        }
+
+        public override Expression<Func<Vote, bool>> Filter(VoteFilter filter)
+        {
+            var expression = base.Filter(filter);
+
+            if (filter != null)
+            {
+                if (filter.UserId.HasValue)
+                {
+                    expression = expression.And(f => f.UserId == filter.UserId.Value);
+
+                }
+
+                if (filter.TouristSpotId.HasValue)
+                {
+                    expression = expression.And(f => f.TouristSpotId == filter.TouristSpotId.Value);
+                }
+
+                if (filter.Up.HasValue)
+                {
+                    expression = expression.And(f => f.Up == filter.Up.Value);
+                }
+
+                if (filter.Down.HasValue)
+                {
+                    expression = expression.And(f => f.Down == filter.Down.Value);
+                }
+            }
+
+            return expression;
         }
     }
 }

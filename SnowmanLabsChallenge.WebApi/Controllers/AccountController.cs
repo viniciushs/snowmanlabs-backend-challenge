@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using SnowmanLabsChallenge.Application.Interfaces;
 
 namespace SnowmanLabsChallenge.WebApi.Controllers
 {
@@ -23,15 +24,19 @@ namespace SnowmanLabsChallenge.WebApi.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
 
+        private readonly ITouristSpotAppService touristSpotAppService;
+
         public AccountController(
             SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
-            IOptions<AppSettings> appSettings)
+            IOptions<AppSettings> appSettings,
+            ITouristSpotAppService touristSpotAppService)
             : base()
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _appSettings = appSettings.Value;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
+            this._appSettings = appSettings.Value;
+            this.touristSpotAppService = touristSpotAppService;
         }
 
         [HttpPost]
@@ -97,6 +102,33 @@ namespace SnowmanLabsChallenge.WebApi.Controllers
 
                 var token = await GenerateJwt(userLogin.Email);
                 return Response(token);
+            }
+            catch (SnowmanLabsChallengeException slcex)
+            {
+                return this.Response(slcex);
+            }
+            catch (Exception ex)
+            {
+                return this.Response(ex);
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete()
+        {
+            try
+            {
+                await _signInManager.SignOutAsync();
+
+                var userId = this.UserId.Value;
+                var identityUser = await _userManager.FindByIdAsync(userId.ToString());
+
+                if (identityUser != null)
+                {
+                    await _userManager.DeleteAsync(identityUser);
+                }
+
+                return Response(null);
             }
             catch (SnowmanLabsChallengeException slcex)
             {
