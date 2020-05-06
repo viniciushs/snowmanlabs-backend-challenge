@@ -10,7 +10,7 @@ namespace SnowmanLabsChallenge.Application.AutoMapper
     {
         public DomainToViewModelMappingProfile()
         {
-            // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
+            
             // AddNewConf //
             this.CreateMap<Vote, VoteViewModel>().MaxDepth(1);
 

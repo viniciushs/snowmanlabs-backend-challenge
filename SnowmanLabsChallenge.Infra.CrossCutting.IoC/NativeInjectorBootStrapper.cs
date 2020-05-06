@@ -26,7 +26,7 @@ namespace SnowmanLabsChallenge.Infra.CrossCutting.IoC
 
             #region Application
 
-            // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
+            
             // AddAppService //
             services.AddScoped<IVoteAppService, VoteAppService>();
             services.AddScoped<ICategoryAppService, CategoryAppService>();
@@ -39,7 +39,7 @@ namespace SnowmanLabsChallenge.Infra.CrossCutting.IoC
 
             #region Infra - Data
 
-            // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
+            
             // AddNewRepository //
             services.AddScoped<IVoteRepository, VoteRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();

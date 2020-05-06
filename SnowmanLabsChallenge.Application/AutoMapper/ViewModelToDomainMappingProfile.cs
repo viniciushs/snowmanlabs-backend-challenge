@@ -8,7 +8,7 @@ namespace SnowmanLabsChallenge.Application.AutoMapper
     {
         public ViewModelToDomainMappingProfile()
         {
-            // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
+            
             // AddNewConf //
             this.CreateMap<VoteViewModel, Vote>();
 

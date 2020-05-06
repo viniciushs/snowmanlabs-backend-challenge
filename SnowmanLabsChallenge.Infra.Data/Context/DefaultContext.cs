@@ -10,7 +10,7 @@ namespace SnowmanLabsChallenge.Infra.Data.Context
     {
         public DefaultContext(DbContextOptions<DefaultContext> options) : base(options) { }
 
-        // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
+        
         // AddNewDbSet //
         public DbSet<Vote> Votes { get; set; }
 
@@ -27,7 +27,7 @@ namespace SnowmanLabsChallenge.Infra.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Nao remova ou edite a linha abaixo. Utilizado para gerar codigo automatico
+            
             // AddNewMapping //
             modelBuilder.ApplyConfiguration(new VoteMap());
             modelBuilder.ApplyConfiguration(new CategoryMap());
